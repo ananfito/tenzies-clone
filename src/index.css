@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    margin: 0;
 }
 
 body {
@@ -8,6 +9,7 @@ body {
   color: #4A4E74;
   background-color: #0B2434;
   margin: 0;
+  padding: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
