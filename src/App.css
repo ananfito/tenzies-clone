@@ -37,27 +37,37 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: white;
 }
 
 .die-num {
   font-size: 1.4rem;
 }
 
+.is-held {
+  background-color: #59E391;
+}
+
 /* held die color #59E391 */
-/* buttn color #5035FF */
+
+.roll-btn {
+  color: white;
+  background-color: #5035FF;
+  font-size: 1.2rem;
+  font-style: bold;
+  border: none;
+  border-radius: 5px;
+  padding: .5em 2em;
+  cursor: pointer;
+}
+
+.roll-btn:active {
+  box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
 
 
 /* MEDIA QUERIES */
 
 @media (min-width: 500px) {
-  p {
-    font-size: 1.1rem;
-  }
-  h1 {
-    font-size: 2.3rem;
-  }
-
   .die-face {
     width: 50px;
     height: 50px;
@@ -65,6 +75,11 @@
 
   .die-num {
     font-size: 2rem;
+  }
+
+  .roll-btn {
+    font-size: 1.5rem;
+    padding: .5em 2em;
   }
 
 }

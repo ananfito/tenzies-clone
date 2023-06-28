@@ -1,7 +1,11 @@
+/* BASE RESET */
 * {
     box-sizing: border-box;
     margin: 0;
 }
+
+
+/* BASE STYLES */
 
 body {
   font-family: 'Karla', sans-serif;
@@ -11,13 +15,50 @@ body {
   margin: 0;
   padding: 1em;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 h1, h2, h3, h4 {
   color: #2B283A;
 }
 
+button {
+  font-family: 'Karla', sans-serif;;
+}
 
+
+/* FOOTER */
+
+footer {
+  color: #F5F5F5;
+  margin-top: 2em;
+  text-align: center;
+}
+
+footer a, footer a:visited {
+  text-decoration: none;
+  color: #F5F5F5;
+  border-bottom: 1px solid #59E391;
+}
+
+footer a:hover {
+  border-bottom: 1px solid #5035FF;
+}
+
+
+/* MEDIA QUERIES */
+
+@media (min-width: 500px) {
+  p {
+    font-size: 1.1rem;
+  }
+  h1 {
+    font-size: 2.3rem;
+  }
+  footer {
+    margin-top: 5em;
+  }
+}
