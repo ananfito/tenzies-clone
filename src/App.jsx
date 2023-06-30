@@ -7,6 +7,11 @@ import Confetti from 'react-confetti'
 function App() {
   const [diceNumbers, setDiceNumbers] = useState(allNewDice())
   const [tenzies, setTenzies] = useState(false)
+  const [rolls, setRolls] = useState(0)
+  const [time, setTime] = useState(0)
+  const [running, setRunning] = useState(true) // should the be `true` when rendered?
+  // console.log(running)
+
 
   function generateNewDie() {
     return  {
@@ -34,10 +39,14 @@ function App() {
     ))
 
   function getNewDice() {   
+    console.log(running)
+    // check for game win
     if (tenzies) { 
       setTenzies(false)
       setDiceNumbers(allNewDice())
+      setRolls(0)
     } else {
+      setRunning(true)
       setDiceNumbers(oldDice => oldDice.map(die => {
         if (die.isHeld) {
           return die
@@ -45,8 +54,8 @@ function App() {
           return generateNewDie()
         }
       }))
+      setRolls(prevRolls => prevRolls + 1)
     }
-    
   }
 
   function holdDie(id) {
@@ -55,6 +64,7 @@ function App() {
     }))
   }
 
+  // Game Win
   useEffect(() => {
     const allHeld = diceNumbers.every(die => die.isHeld) // returns `true` when every die's isHeld = true
     const firstValue = diceNumbers[0].value
@@ -62,8 +72,29 @@ function App() {
 
     if (allHeld && allSame) {
       setTenzies(true)
+      setRunning(false)
     }
   }, [diceNumbers])
+
+  // Start game clock
+  useEffect(() => {
+    let interval
+
+    if (running) {
+      interval = setInterval(() => {
+        setTime(prevTime => prevTime + 10)
+      }, 10)
+    } else if (!running) {
+      clearInterval(interval)
+    }
+
+    return () => clearInterval(interval)
+  }, [running])
+
+  // Save highest game time
+  // useEffect
+  // when `tenzies` is true, store `time` to localStorage
+  // conditionally render `Best Time` and recalculate (b/c `time` is in milliseconds)
 
   return (
     <main className='container'>
@@ -79,6 +110,14 @@ function App() {
       >
           { tenzies ? 'New Game' : 'Roll' }
       </button>
+      <div className="game-stats">
+        <p className='rolls'>Rolls: {rolls}</p>
+        <p>Game Time:
+          <span> {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
+          <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
+        </p>
+        <p>Best Time: {}</p>
+      </div>
     </main>
   )
 }
