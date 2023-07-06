@@ -9,9 +9,9 @@ function App() {
   const [tenzies, setTenzies] = useState(false)
   const [rolls, setRolls] = useState(0)
   const [time, setTime] = useState(0)
-  const [running, setRunning] = useState(true) // should the be `true` when rendered?
-  // console.log(running)
-
+  const [running, setRunning] = useState(false)
+  const storedBestTime = JSON.parse(localStorage.getItem('bestTime'))
+  const [bestTime, setBestTime] = useState(storedBestTime)
 
   function generateNewDie() {
     return  {
@@ -39,12 +39,12 @@ function App() {
     ))
 
   function getNewDice() {   
-    console.log(running)
     // check for game win
     if (tenzies) { 
       setTenzies(false)
       setDiceNumbers(allNewDice())
       setRolls(0)
+      setTime(0)
     } else {
       setRunning(true)
       setDiceNumbers(oldDice => oldDice.map(die => {
@@ -73,6 +73,10 @@ function App() {
     if (allHeld && allSame) {
       setTenzies(true)
       setRunning(false)
+      if (storedBestTime > time) {
+        setBestTime(time)
+      }
+      
     }
   }, [diceNumbers])
 
@@ -91,10 +95,15 @@ function App() {
     return () => clearInterval(interval)
   }, [running])
 
+  // Best time
   // Save highest game time
   // useEffect
   // when `tenzies` is true, store `time` to localStorage
   // conditionally render `Best Time` and recalculate (b/c `time` is in milliseconds)
+  useEffect(() => {
+    console.log(storedBestTime)
+    localStorage.setItem('bestTime', JSON.stringify(bestTime))
+  }, [bestTime])
 
   return (
     <main className='container'>
@@ -116,7 +125,10 @@ function App() {
           <span> {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
           <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
         </p>
-        <p>Best Time: {}</p>
+        <p>Best Time:
+          <span> {storedBestTime ? ("0" + Math.floor((storedBestTime / 60000) % 60)).slice(-2) : "00"}:</span>
+          <span>{storedBestTime ? ("0" + Math.floor((storedBestTime / 1000) % 60)).slice(-2) : "00"}</span>
+        </p>
       </div>
     </main>
   )
