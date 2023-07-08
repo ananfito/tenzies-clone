@@ -10,8 +10,16 @@ function App() {
   const [rolls, setRolls] = useState(0)
   const [time, setTime] = useState(0)
   const [running, setRunning] = useState(false)
+  const [bestTime, setBestTime] = useState('')
   const storedBestTime = JSON.parse(localStorage.getItem('bestTime'))
-  const [bestTime, setBestTime] = useState(storedBestTime)
+  const diceElements = diceNumbers.map((die) => (
+    <Die 
+      key={die.id} 
+      value={die.value} 
+      isHeld={die.isHeld}
+      holdDie={() => holdDie(die.id)}
+    />
+    ))
 
   function generateNewDie() {
     return  {
@@ -29,21 +37,15 @@ function App() {
     return newDice
   }
 
-  const diceElements = diceNumbers.map((die) => (
-    <Die 
-      key={die.id} 
-      value={die.value} 
-      isHeld={die.isHeld}
-      holdDie={() => holdDie(die.id)}
-    />
-    ))
-
-  function getNewDice() {   
+  function getNewDice() {  
     // check for game win
     if (tenzies) { 
       setTenzies(false)
       setDiceNumbers(allNewDice())
       setRolls(0)
+      if (bestTime === '' || storedBestTime > time) {
+        setBestTime(time)
+      }
       setTime(0)
     } else {
       setRunning(true)
@@ -73,10 +75,6 @@ function App() {
     if (allHeld && allSame) {
       setTenzies(true)
       setRunning(false)
-      if (storedBestTime > time) {
-        setBestTime(time)
-      }
-      
     }
   }, [diceNumbers])
 
@@ -96,12 +94,7 @@ function App() {
   }, [running])
 
   // Best time
-  // Save highest game time
-  // useEffect
-  // when `tenzies` is true, store `time` to localStorage
-  // conditionally render `Best Time` and recalculate (b/c `time` is in milliseconds)
   useEffect(() => {
-    console.log(storedBestTime)
     localStorage.setItem('bestTime', JSON.stringify(bestTime))
   }, [bestTime])
 
