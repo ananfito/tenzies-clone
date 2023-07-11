@@ -1,8 +1,11 @@
+
+/* BASE STYLING */
+
 .container { 
   background-color: #F5F5F5;
   border-radius: 8px;
   text-align: center;
-  padding: 1em;
+  padding: 1em 1.5em;
   min-width: 320px;
   min-height: 320px;
   max-width: 550px;
@@ -14,6 +17,10 @@
 
 .container > h1 {
   margin: .25em;
+}
+
+.container > p {
+  line-height: 1.5;
 }
 
 
@@ -41,13 +48,12 @@
 
 .die-num {
   font-size: 1.4rem;
+  font-weight: bold;
 }
 
 .is-held {
   background-color: #59E391;
 }
-
-/* held die color #59E391 */
 
 .roll-btn {
   color: white;

@@ -10,8 +10,9 @@ function App() {
   const [rolls, setRolls] = useState(0)
   const [time, setTime] = useState(0)
   const [running, setRunning] = useState(false)
-  const [bestTime, setBestTime] = useState('')
   const storedBestTime = JSON.parse(localStorage.getItem('bestTime'))
+  const [bestTime, setBestTime] = useState(storedBestTime)
+  
   const diceElements = diceNumbers.map((die) => (
     <Die 
       key={die.id} 
@@ -101,28 +102,37 @@ function App() {
   return (
     <main className='container'>
       {tenzies && <Confetti />}
+
       <h1>Tenzies</h1>
-      <p>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+      <p>Roll until all dice are the same.</p>
+      <p>Click each die to freeze it at its current value between rolls.</p>
+      <p>Based upon the <a href="https://ilovetenzi.com/" target='_blank'>dice game</a> of the same name.</p>
+
       <div className='dice-container'>
         {diceElements}
       </div>
+
       <button 
         onClick={getNewDice} 
         className='roll-btn'
       >
           { tenzies ? 'New Game' : 'Roll' }
       </button>
+
       <div className="game-stats">
         <p className='rolls'>Rolls: {rolls}</p>
+        
         <p>Game Time:
           <span> {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
           <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
         </p>
+
         <p>Best Time:
-          <span> {storedBestTime ? ("0" + Math.floor((storedBestTime / 60000) % 60)).slice(-2) : "00"}:</span>
-          <span>{storedBestTime ? ("0" + Math.floor((storedBestTime / 1000) % 60)).slice(-2) : "00"}</span>
+          <span> {storedBestTime ? ("0" + Math.floor((bestTime / 60000) % 60)).slice(-2) : "00"}:</span>
+          <span>{storedBestTime ? ("0" + Math.floor((bestTime / 1000) % 60)).slice(-2) : "00"}</span>
         </p>
       </div>
+
     </main>
   )
 }
