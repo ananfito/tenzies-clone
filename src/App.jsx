@@ -44,9 +44,6 @@ function App() {
       setTenzies(false)
       setDiceNumbers(allNewDice())
       setRolls(0)
-      if (bestTime === '' || storedBestTime > time) {
-        setBestTime(time)
-      }
       setTime(0)
     } else {
       setRunning(true)
@@ -76,6 +73,9 @@ function App() {
     if (allHeld && allSame) {
       setTenzies(true)
       setRunning(false)
+      if (bestTime === null || bestTime === '' || storedBestTime > time) {
+        setBestTime(time)
+      }
     }
   }, [diceNumbers])
 
@@ -121,15 +121,15 @@ function App() {
 
       <div className="game-stats">
         <p className='rolls'>Rolls: {rolls}</p>
-        
+
         <p>Game Time:
           <span> {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
           <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
         </p>
 
         <p>Best Time:
-          <span> {storedBestTime ? ("0" + Math.floor((bestTime / 60000) % 60)).slice(-2) : "00"}:</span>
-          <span>{storedBestTime ? ("0" + Math.floor((bestTime / 1000) % 60)).slice(-2) : "00"}</span>
+          <span> {bestTime ? ("0" + Math.floor((bestTime / 60000) % 60)).slice(-2) : "00"}:</span>
+          <span>{bestTime ? ("0" + Math.floor((bestTime / 1000) % 60)).slice(-2) : "00"}</span>
         </p>
       </div>
 
