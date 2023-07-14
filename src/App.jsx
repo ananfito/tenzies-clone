@@ -3,6 +3,7 @@ import './App.css'
 import Die from './Die.jsx'
 import { nanoid } from 'nanoid'
 import Confetti from 'react-confetti'
+import { useInterval } from 'usehooks-ts'
 
 function App() {
   const [diceNumbers, setDiceNumbers] = useState(allNewDice())
@@ -80,19 +81,12 @@ function App() {
   }, [diceNumbers])
 
   // Start game clock
-  useEffect(() => {
-    let interval
-
-    if (running) {
-      interval = setInterval(() => {
-        setTime(prevTime => prevTime + 10)
-      }, 10)
-    } else if (!running) {
-      clearInterval(interval)
-    }
-
-    return () => clearInterval(interval)
-  }, [running])
+  useInterval(
+    () => {
+      setTime(prevTime => prevTime + 10)
+    },
+    running ? 10 : null,
+  )
 
   // Best time
   useEffect(() => {
