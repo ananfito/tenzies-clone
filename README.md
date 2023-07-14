@@ -136,4 +136,6 @@ Thank you for reading about this project. If you'd like to connect with me for m
 
 ## Acknowledgements
 
-[Helen Chong's example of the game](https://github.com/helenclx/Tenzies-Game) was **very** useful to me in finding Ediwin's tutorial for the dice dots *and* for giving me the inspiration to use a `switch` statement within in the dice component. Thank you, Helen!
+- [Helen Chong's example of the game](https://github.com/helenclx/Tenzies-Game) was **very** useful to me in finding Ediwin's tutorial for the dice dots *and* for giving me the inspiration to use a `switch` statement within in the dice component. Thank you, Helen!
+
+- Shoutout to Mist in the Scrimba Discord community for the suggestion to make use of [usehooks-ts's `useInterval`](https://usehooks-ts.com/react-hook/use-interval) instead of `setInterval` for the game timer. `setInterval` was causing a glitch to occur on mobile web browsers (the timer would run more slowly) but `useInterval` fixed the issue. Thanks, Mist! 
