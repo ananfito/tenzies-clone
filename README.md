@@ -16,9 +16,9 @@ A clone of the popular dice game, Tenzies.
 
 ## Overivew
 
-This project was introduced in Module 11 "React Basics" of the Scrimba Frontend Career Path. It is a clone of the popular dice game, [Tenzies](https://ilovetenzi.com/), and is played the same way. 
+This project was introduced in Module 11 "React Basics" of [the Scrimba Frontend Career Path](https://scrimba.com/learn/frontend). It is a clone of the popular dice game, [Tenzies](https://ilovetenzi.com/), and is played the same way. 
 
-The goal of the game is to roll the 10 dice until they are the same. During gameplay, players can set aside the number they are trying to reach -- this means these dice will not be rolled during the next roll. Players continue rolling until they achieve all with the same number.
+The goal of the game is to roll the 10 dice until they are the same. During gameplay, players can set aside the number they are trying to reach -- this means these dice will not be rolled during the next roll. They then continue rolling and holding dice until all are the same number.
 
 ### Screenshot
 
@@ -40,10 +40,10 @@ A live version can be viewed at: https://tenzies-clone.netlify.app.
 
 ## My Process
 
-The bulk of this project was completed during follow-along tutorials, however the following features were completed independently: 
+The bulk of this project was completed during follow-along tutorials, however, the following features were completed independently: 
 
-- Abilty to track time
-- Store best time in local storage
+- Ability to track time
+- Store the player's best time in local storage
 - Track the number of rolls
 - Use CSS to add dice dots
 
@@ -56,13 +56,29 @@ The bulk of this project was completed during follow-along tutorials, however th
 
 ### What I learned 
 
-This project packed a lot into! It was great opportunity to review key practices with React, such as `useState` and `useEffect`, but I think my biggest takeaway from this project was learning how to use the CSS to create the dice dots. 
+This project packed a lot into it! It was a great opportunity to review key practices with React, such as `useState` and `useEffect`, but I think my biggest takeaway from this project was learning how to use CSS grid to create the dice dots.
 
-As I learned from [this DEV.to blog post by Edwin](https://dev.to/ekeijl/creating-dice-using-css-grid-j4), the trick here is to use CSS grid with `grid-template-areas` and the `nth-child()` pseudo-selector to specify where the dots (or pips) will appear. 
+As I learned from [this DEV.to blog post by Edwin](https://dev.to/ekeijl/creating-dice-using-css-grid-j4), the trick here is to use CSS grid with `grid-template-areas` and the `nth-child()` pseudo-selector to specify where the dots (or pips) will appear. This is because the dots on an actual dice fall into a 3x3 grid which makes CSS grid a great choice for displaying the dots.
 
 Here's an excerpt of the CSS: 
 
 ```css
+.die-face {
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25); 
+  padding: .20em;
+  width: 45px;
+  height: 45px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: grid;
+  /* each area (or letter) will be taken by a dot */
+  grid-template-areas: 
+      "a . c"
+      "e g f"
+      "d . b";
+  flex: 0 0 auto;
+}
+
 .pip {
   display: block;
   align-self: center;
@@ -75,6 +91,7 @@ Here's an excerpt of the CSS:
   box-shadow: inset 0 3px #111, inset 0 -3px #555;
 }
 
+/* these assign the dots to the appropriate grid areas */
 .pip:nth-child(2) {
   grid-area: b;
 }
@@ -95,12 +112,13 @@ Here's an excerpt of the CSS:
   grid-area: f;
 }
 
+/* this places the dot of the 3 and 5 die in the center */
 .pip:nth-child(odd):last-child {
 grid-area: g;
 }
 ```
 
-I found this solution to be particularly clever and helpful in completing the independent portions of the project. For a full explantion, I strongly encourage you to read Edwin's post. 
+I found this solution to be particularly clever and helpful in completing the independent portions of the project. For a full explanation, I strongly encourage you to read [Edwin's post](https://dev.to/ekeijl/creating-dice-using-css-grid-j4) and check out the sandbox he provided at the end of the post. 
 
 ### Useful Resources
 
@@ -118,4 +136,4 @@ Thank you for reading about this project. If you'd like to connect with me for m
 
 ## Acknowledgements
 
-[Helen Chong's example of the game](https://github.com/helenclx/Tenzies-Game) was **very** useful to me in finding the tutorial for the dice dots *and* for giving me the inspiration to use a `switch` statement within in the dice component. 
+[Helen Chong's example of the game](https://github.com/helenclx/Tenzies-Game) was **very** useful to me in finding Ediwin's tutorial for the dice dots *and* for giving me the inspiration to use a `switch` statement within in the dice component. Thank you, Helen!
